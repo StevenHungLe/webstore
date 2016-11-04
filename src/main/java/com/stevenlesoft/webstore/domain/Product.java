@@ -5,24 +5,44 @@ package com.stevenlesoft.webstore.domain;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 public class Product {
 
-	private String productId;
+	private long productId;
+	@NotEmpty
+	@Length(min=1, max=30)
 	private String name;
+	@NotNull
+	@Range(min=1)
+	@Digits(integer=12, fraction=2)
 	private BigDecimal unitPrice;
+	@Length(max=200)
 	private String description;
+	@NotEmpty
+	@Length(max=30)
 	private String manufacturer;
+	@NotEmpty
+	@Length(max=20)
 	private String category;
+	@NotNull
+	@Digits(integer=12, fraction=0)
 	private long unitsInStock;
 	private long unitsInOrder;
 	private boolean discontinued;
+	@NotEmpty
 	private String condition;
 	
 	public Product() {
 		super();
 	}
 	
-	public Product(String productId, String name, BigDecimal unitPrice) {
+	public Product(long productId, String name, BigDecimal unitPrice) {
 		this.productId = productId;
 		this.name = name;
 		this.unitPrice = unitPrice;
@@ -31,11 +51,11 @@ public class Product {
 	
 	// setters and getters for all the fields
 	
-	public String getProductId() {
+	public long getProductId() {
 		return productId;
 	}
 
-	public void setProductId(String productId) {
+	public void setProductId(long productId) {
 		this.productId = productId;
 	}
 
@@ -113,6 +133,14 @@ public class Product {
 
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (productId ^ (productId >>> 32));
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -121,14 +149,12 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		if (productId == null) {
-			if (other.productId != null)
-				return false;
-		} 
-		else if (!productId.equals(other.productId))
+		if (productId != other.productId)
 			return false;
 		return true;
 	}
+	
+	
 	
 	@Override
 	public String toString() {

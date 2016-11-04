@@ -23,10 +23,10 @@ public class OrderController {
 	 * @param quantity
 	 * @return name of the view to be rendered
 	 */
-	@RequestMapping("/order/{productId}/{quantity}")
-	public String processOrder(@PathVariable String productId, @PathVariable int quantity)
+	@RequestMapping("/order/{productId}/{username}/{quantity}")
+	public String processOrder(@PathVariable long productId, @PathVariable String username, @PathVariable int quantity)
 	{
-		orderService.processOrder(productId, quantity);
+		orderService.processOrder(productId, username, quantity);
 		
 		return "redirect:/products/product?id="+productId+"&orderMade=true";
 	}

@@ -7,15 +7,22 @@ package com.stevenlesoft.webstore.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.stevenlesoft.webstore.domain.Product;
 import com.stevenlesoft.webstore.service.ProductService;
 
 @Controller
@@ -25,6 +32,18 @@ public class ProductController {
 	// the autowired service bean to handle requested service
 	@Autowired
 	private ProductService productService;
+	
+	
+	/**
+	 * initialize the WebDataBinder bean and disallow entries for some fields
+	 * @param binder
+	 */
+	@InitBinder
+	public void initializeBinder(WebDataBinder binder)
+	{
+		binder.setDisallowedFields("discontinued","unitsInOrder");
+	}
+	
 	
 	/**
 	 * list all products in stock
@@ -51,10 +70,10 @@ public class ProductController {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String listProductsByFilter(Model model, 
-			@RequestParam(defaultValue="Smart Phone") String category,
-			@RequestParam(defaultValue="Apple") String brand, 
-			@RequestParam(defaultValue="0") long priceFrom, 
-			@RequestParam(defaultValue="99999") long priceTo)
+			@RequestParam(required=false) String category,
+			@RequestParam(required=false) String brand, 
+			@RequestParam(required=false) long priceFrom, 
+			@RequestParam(required=false) long priceTo)
 	{
 		model.addAttribute("tagline","Filtered products");
 		model.addAttribute("products", productService.getProductsByFilter(category,brand,priceFrom,priceTo));
@@ -103,12 +122,36 @@ public class ProductController {
 	 * @return name of the view to be rendered
 	 */
 	@RequestMapping("/product")
-	public String listProductById(Model model, @RequestParam("id") String productId, 
+	public String listProductById(Model model, @RequestParam("id") long productId, 
 			@RequestParam(defaultValue="false") String orderMade)
 	{
 		model.addAttribute("orderMade", orderMade);
 		model.addAttribute("product", productService.getProductById(productId));
 		return "product";
+	}
+	
+	/**
+	 * render the page that contains the add product form
+	 * @param newProduct the data binding object
+	 * @return name of the view to be rendered
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String getAddProductForm(@ModelAttribute("newProduct") Product newProduct)
+	{
+		return "addProduct";
+	}
+	
+	/**
+	 * process an add new product post request
+	 * @param newProduct
+	 * @param result
+	 * @return name of the view to be rendered
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String processAddProductRequest(@Valid Product newProduct, BindingResult result)
+	{	
+		long productId = productService.addProduct(newProduct);
+		return "redirect:/products/product?id="+productId;
 	}
 
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+ 
+    <class name="com.stevenlesoft.webstore.domain.Product" table="PRODUCT">
+ 
+        <id name="productId" column="ID">
+            <generator class="native" />
+        </id>
+ 
+        <property name="name">
+            <column name="NAME" length="20" not-null="true" />
+        </property>
+ 
+        <property name="unitPrice">
+            <column name="UNITPRICE" length="15" not-null="true" />
+        </property>
+ 
+        <property name="description">
+            <column name="DESCRIPTION" length="200" not-null="false" />
+        </property>
+        
+        <property name="manufacturer">
+            <column name="MANUFACTURER" length="30" not-null="true" />
+        </property>
+        
+        <property name="category">
+        	<column name="CATEGORY" length="20" />
+        </property>
+        
+        <property name="unitsInStock">
+        	<column name="UNITSINSTOCK" length="10" />
+        </property>
+        
+        <property name="unitsInOrder">
+        	<column name="UNITSINORDER" length="10" />
+        </property>
+        
+        <property name="discontinued">
+        	<column name="DISCONTINUED" length="10" />
+        </property>
+        
+        <property name="condition">
+        	<column name="`CONDITION`" length="15" />
+        </property>
+ 
+    </class>
+</hibernate-mapping>

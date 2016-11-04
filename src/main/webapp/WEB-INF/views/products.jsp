@@ -75,10 +75,10 @@
 					
 					<div class="form-group">
 						<label for="priceFrom" class="control-label col-sm-2">Price ranges from</label>  
-						<input type="number" class="col-sm-1" name="priceFrom" id="priceForm"> 
+						<input type="number" class="col-sm-1" name="priceFrom" id="priceForm" value="0"> 
 
 						<label for="priceTo" class="control-label  col-xs-1">   to </label>  
-						<input type="number" class="col-sm-1" name="priceTo" id="priceTo">
+						<input type="number" class="col-sm-1" name="priceTo" id="priceTo" value="0">
 					</div>
 					<br>
 					

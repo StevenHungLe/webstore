@@ -14,5 +14,7 @@ public interface ProductRepository {
 	Set<Product> getProductsByBrand(String productBrand);
 	Set<Product> getProductsByPriceRange(long priceFrom, long priceTo);
 	Set<Product> getProductsByFilter(Map<String,List<String>> filterParams);
-	Product getProductById(String productId);
+	Product getProductById(long productId);
+	long addProduct(Product newProduct);
+	void updateProduct(Product product);
 }

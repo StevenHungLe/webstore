@@ -9,4 +9,7 @@ import com.stevenlesoft.webstore.domain.Customer;
 
 public interface CustomerRepository {
 	List<Customer> getAllCustomers();
+	Customer getCustomerByUsername(String userName);
+	Customer getCustomerById(long id);
+	long addCustomer(Customer newCustomer);
 }

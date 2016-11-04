@@ -48,19 +48,26 @@ public class ProductServiceImpl implements ProductService {
 	 * retrieve a set of products filtered by brand, category, and price range
 	 */
 	public Set<Product> getProductsByFilter(String category, String brand, long priceFrom, long priceTo) {
+		
 		Set<Product> productsByCategory = productRepository.getProductsByCategory(category);
-
 		productsByCategory.retainAll(productRepository.getProductsByBrand(brand));
 		productsByCategory.retainAll(productRepository.getProductsByPriceRange(priceFrom, priceTo));
-		
 		return productsByCategory;
 	}
 
 	/**
 	 * retrieve the product specified by the product id
 	 */
-	public Product getProductById(String productId) {
+	public Product getProductById(long productId) {
 		return productRepository.getProductById(productId);
+	}
+	
+	/**
+	 * add a new product to database
+	 */
+	public long addProduct(Product newProduct)
+	{
+		return productRepository.addProduct(newProduct);
 	}
 	
 }

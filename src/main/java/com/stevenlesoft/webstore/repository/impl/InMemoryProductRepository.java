@@ -1,15 +1,9 @@
-/**
- * a simple non-persistence repository created for testing purposes
- * creates and maintains a volatile list of products in memory 
- */
-
 package com.stevenlesoft.webstore.repository.impl;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,8 +11,12 @@ import java.util.HashSet;
 import com.stevenlesoft.webstore.domain.Product;
 import com.stevenlesoft.webstore.repository.ProductRepository;
 
-
-@Repository
+/**
+ * a simple non-persistence repository created for testing purposes
+ * creates and maintains a volatile list of products in memory 
+ */
+//To use: uncomment this annotation and comment out the other implementation's annotation
+//@Repository
 public class InMemoryProductRepository implements ProductRepository{
 
 	private List<Product> listOfProducts = new ArrayList<Product>();
@@ -27,19 +25,19 @@ public class InMemoryProductRepository implements ProductRepository{
 	 * creates some products for testing purposes 
 	 */
 	public InMemoryProductRepository() {
-		Product laptop_dell = new Product("dellins14","Dell Inspiron", new BigDecimal(700));
+		Product laptop_dell = new Product(1,"Dell Inspiron", new BigDecimal(700));
 		laptop_dell.setDescription("Dell Inspiron 14-inch Laptop (Black) with 3rd Generation Intel Core processors");
 		laptop_dell.setCategory("Laptop");
 		laptop_dell.setManufacturer("Dell");
 		laptop_dell.setUnitsInStock(1000);
 		
-		Product tablet_Nexus = new Product("googlenex7","Nexus 7", new BigDecimal(300));
+		Product tablet_Nexus = new Product(2,"Nexus 7", new BigDecimal(300));
 		tablet_Nexus.setDescription("Google Nexus 7 is the lightest 7 inch tablet With a quad-core Qualcomm Snapdragon™ S4 Pro processor");
 		tablet_Nexus.setCategory("Tablet");
 		tablet_Nexus.setManufacturer("Google");
 		tablet_Nexus.setUnitsInStock(1000);
 		
-		Product iphone = new Product("appleip7","Apple Iphone 7", new BigDecimal(800));
+		Product iphone = new Product(3,"Apple Iphone 7", new BigDecimal(800));
 		iphone.setDescription("This iphone is so awesome it doesn't need a headphone jack because headphone jack is for noobs");
 		iphone.setCategory("Smart Phone");
 		iphone.setManufacturer("Apple");
@@ -49,7 +47,7 @@ public class InMemoryProductRepository implements ProductRepository{
 		listOfProducts.add(tablet_Nexus);
 		listOfProducts.add(iphone);
 	}
-	
+
 	/**
 	 * retrieve all products available
 	 */
@@ -153,13 +151,13 @@ public class InMemoryProductRepository implements ProductRepository{
 	/**
 	 * retrieve the product specified by the product id
 	 */
-	public Product getProductById(String productId) {
+	public Product getProductById(long productId) {
 		Product requestedProduct = null;
 		
 		for ( Product product: listOfProducts)
 		{
-			if (product != null && product.getProductId()!= null
-					&& product.getProductId().equals(productId))
+			if (product != null && product.getProductId() != 0
+					&& product.getProductId() == productId)
 				requestedProduct = product;
 		}
 		
@@ -168,5 +166,13 @@ public class InMemoryProductRepository implements ProductRepository{
 		
 		return requestedProduct;
 	}
+	
+	public long addProduct(Product product){return 0;}
 
+	public void updateProduct(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

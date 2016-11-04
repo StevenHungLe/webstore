@@ -50,7 +50,7 @@
 				<h4>${product.unitPrice} USD</h4>
 				<p>
 				<button class="btn btn-warning btn-large"
-				onclick="var orderLink = '/webstore/order/${product.productId}/' + window.prompt('enter quantity to order','1');
+				onclick="var orderLink = '/webstore/order/${product.productId}/'+window.prompt('enter your username','your username')+ '/' + window.prompt('enter quantity to order','1');
 				location.href = orderLink">
 					<span class="glyphicon-shopping-cart glyphicon"></span> Order Now
 				</button>

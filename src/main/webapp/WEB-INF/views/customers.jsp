@@ -31,6 +31,11 @@
 								<p>${customer.customerAddress}</p>
 								<p>${customer.customerEmail}</p>
 								<p>Number of orders made: ${customer.numberOfOrdersMade} </p>
+								<a href="<c:url value="customers/customer"> 
+									<c:param name="customerId" value="${customer.customerId}" />
+									</c:url>" class="btn btn-info">
+									<span class="glyphicon glyphicon-info-sign"></span> Details
+									</a>
 							</div>
 						</div>
 					</div>

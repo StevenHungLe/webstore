@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+ 
+    <class name="com.stevenlesoft.webstore.domain.Customer" table="customer">
+ 
+        <id name="customerId" column="id">
+            <generator class="native" />
+        </id>
+ 	
+ 		<property name="customerPassword">
+ 			<column name="password" length="200" />
+ 		</property>
+ 		
+        <property name="customerName">
+            <column name="name" length="20" not-null="true" />
+        </property>
+ 
+        <property name="customerAddress">
+            <column name="address" length="50" not-null="true" />
+        </property>
+ 
+        <property name="customerEmail">
+            <column name="email" length="40" not-null="true" />
+        </property>
+        
+        <property name="numberOfOrdersMade">
+            <column name="numoforders" length="10" not-null="true" />
+        </property>
+ 
+    </class>
+</hibernate-mapping>
