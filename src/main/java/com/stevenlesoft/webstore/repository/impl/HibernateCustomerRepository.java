@@ -42,4 +42,13 @@ public class HibernateCustomerRepository extends AbstractHibernateRepository<Lon
 	public long addCustomer(Customer newCustomer) {
 		return save(newCustomer);
 	}
+
+	/**
+	 * update the customer in the database
+	 */
+	public void updateCustomer(Customer customer) {
+		update(customer);
+	}
+	
+	
 }

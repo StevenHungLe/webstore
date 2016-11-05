@@ -48,6 +48,11 @@ public class InMemoryCustomerRepository implements CustomerRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void updateCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

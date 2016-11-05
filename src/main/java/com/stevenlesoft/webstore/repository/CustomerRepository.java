@@ -12,4 +12,5 @@ public interface CustomerRepository {
 	Customer getCustomerByUsername(String userName);
 	Customer getCustomerById(long id);
 	long addCustomer(Customer newCustomer);
+	void updateCustomer(Customer customer);
 }
